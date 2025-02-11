@@ -59,11 +59,3 @@ type IFilter = interface end
 type IGradient = interface end
 
 type IGradientDirection = interface end
-
-[<Erase>]
-type GradientVariant = 
-    | Linear
-    | Radial
-    | Conic
-    | RepeatingLinear
-    | RepeatingRadial

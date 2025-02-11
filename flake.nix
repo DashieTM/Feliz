@@ -51,8 +51,6 @@
                   dotnetCorePackages.sdk_8_0
                 ]
               )
-              nodejs_22 # TODO beforepr needed?
-              corepack_22 # TODO beforepr needed?
               fantomas
             ];
           };
