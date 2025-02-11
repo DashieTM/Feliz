@@ -1116,88 +1116,91 @@ let allItems =
                 dispatch = dispatch
             |}
 
-        let linear: LinearGradient = {
-            CornerOrAngle = GradientCornerOrAngle.degree 5 |> Some
-            FirstColorStop = "#FF0000"
-            OtherColorStops = [|
-            //ColorHintAndColorStop.init (Some (length.px 10)) "#00FF00"
-            //ColorHintAndColorStop.init (Some (length.px 10)) "#0000FF"
-            |]
-        }
-
-        //let radial = RadialGradient.colorGradient [ "#0000FF"; "#00FF00"; "#FF0000" ]
-        let radial: RadialGradient = {
-            SizeAndOrShape = RadialSizeAndOrShape.Shape RadialShape.Circle |> Some
-            Position = GradientPosition.left |> Some
-            FirstColorStop = "#0000FF"
-            OtherColorStops = [
-                ColorHintAndColorStop.initWithoutHint "#00FF00"
-                ColorHintAndColorStop.init (length.px 10) "#0000FF"
-            ]
-        }
-
-        let angleAndPosition =
-            ConicAngleAndPosition.init
-                (GradientAngle.Deg 5)
-                (GradientPosition.horizontalAndVertical (GradientHorizontalPosition.Left, GradientVerticalPosition.Top))
-        let conic: ConicGradient = { //ConicGradient.colorGradient [ "#0000FF"; "#00FF00"; "#FF0000" ]
-            AngleAndPosition = Some angleAndPosition
-            ColorInterpolation = Some ColorInterpolationMethod.a98Rgb
-            FirstColorStop = "#0000FF"
-            OtherColorStops = [
-                ConicColorHintAndColorStop.init (Some (ConicColorHintVariant.Percentage 5.0)) "#00FF00"
-                ConicColorHintAndColorStop.init (Some (ConicColorHintVariant.degree 5.0)) "#0000FF"
-            ]
-        }
-        printfn "%s" (LinearGradient.toString GradientVariant.Normal linear)
-        printfn "%s" (RadialGradient.toString GradientVariant.Normal radial)
-        printfn "%s" (ConicGradient.toString GradientVariant.Normal conic)
-        printfn "%s" (LinearGradient.toString GradientVariant.Repeating linear)
-        printfn "%s" (RadialGradient.toString GradientVariant.Repeating radial)
-        printfn "%s" (ConicGradient.toString GradientVariant.Repeating conic)
         Html.div [
             prop.className "scrollbar"
             prop.children [
                 menuList [
                     Html.div [
                         prop.style [
-                            //style.backgroundImage.linearGradient linear
                             style.backgroundImage.linearGradient (
-                                GradientCornerOrAngle.degree 5,
-                                "#FF0000",
-                                ColorHintAndColorStop.initWithoutHint "#00FF00",
-                                ColorHintAndColorStop.init (length.px 50) "#00FF00"
+                                linearGradientOptions.angle (gradientAngle.deg 5),
+                                linearColorStop.colorStop ("#FF0000"),
+                                linearColorStopAndHint.colorStop ("#00FF00"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
                             )
                         ]
                         prop.children [ Html.span [ prop.text "henlo" ] ]
                     ]
                     Html.div [
                         prop.style [
-                            style.backgroundImage.radialGradient radial
+                            style.backgroundImage.radialGradient (
+                                radialSizeAndOrShape.sizeAndShape (
+                                    radialSize.length (length.px 10),
+                                    radialShape.circle
+                                ),
+                                gradientPosition.leftTop,
+                                linearColorStop.colorStop ("#FF0000"),
+                                linearColorStopAndHint.colorStop ("#00FF00"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                            )
                         ]
                         prop.children [ Html.span [ prop.text "henlo" ] ]
                     ]
                     Html.div [
                         prop.style [
-                            style.backgroundImage.conicGradient conic
+                            style.backgroundImage.conicGradient (
+                                angleAndPosition.position gradientPosition.rightCenter,
+                                colorInterpolation.polar (polarColorSpaceVariant.hsl),
+                                angleColorStop.colorStop ("#FF0000"),
+                                angleColorHintAndStop.colorStop ("#00FF00"),
+                                angleColorHintAndStop.colorStop (conicColorHintVariant.percentage 10, "#0000FF"),
+                                angleColorHintAndStop.colorStop (
+                                    conicColorHintVariant.angle (gradientAngle.deg 5),
+                                    "#0000FF"
+                                )
+                            )
                         ]
                         prop.children [ Html.span [ prop.text "henlo" ] ]
                     ]
                     Html.div [
                         prop.style [
-                            style.backgroundImage.repeatingLinearGradient linear
+                            style.backgroundImage.repeatingLinearGradient (
+                                linearGradientOptions.angle (gradientAngle.deg 5),
+                                linearColorStop.colorStop ("#FF0000"),
+                                linearColorStopAndHint.colorStop ("#00FF00"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                            )
                         ]
                         prop.children [ Html.span [ prop.text "henlo" ] ]
                     ]
                     Html.div [
                         prop.style [
-                            style.backgroundImage.repeatingRadialGradient radial
+                            style.backgroundImage.repeatingRadialGradient (
+                                radialSizeAndOrShape.sizeAndShape (
+                                    radialSize.length (length.px 10),
+                                    radialShape.circle
+                                ),
+                                gradientPosition.leftTop,
+                                linearColorStop.colorStop ("#FF0000"),
+                                linearColorStopAndHint.colorStop ("#00FF00"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF"),
+                                linearColorStopAndHint.colorStop (length.px 10, "#0000FF")
+                            )
                         ]
                         prop.children [ Html.span [ prop.text "henlo" ] ]
                     ]
                     Html.div [
                         prop.style [
-                            style.backgroundImage.repeatingConicGradient conic
+                            style.backgroundImage.repeatingConicGradient (
+                                angleAndPosition.position gradientPosition.rightCenter,
+                                colorInterpolation.polar (polarColorSpaceVariant.hsl),
+                                angleColorStop.colorStop ("#FF0000"),
+                                angleColorHintAndStop.colorStop ("#00FF00"),
+                                angleColorHintAndStop.colorStop ("#0000FF")
+                            )
                         ]
                         prop.children [ Html.span [ prop.text "henlo" ] ]
                     ]

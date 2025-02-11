@@ -3684,163 +3684,278 @@ type style =
 module style =
     [<Erase>]
     type backgroundImage =
+        /// https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient
         static member inline linearGradient
             (
-                cornerOrAngle: GradientCornerOrAngle,
-                firstColor: string,
-                [<ParamArray>] otherColors: ColorHintAndColorStop array
+                options: ILinearGradientOptions,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
             )
             =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.init cornerOrAngle firstColor otherColors
-                 |> LinearGradient.toString GradientVariant.Normal)
-
-        static member inline linearGradient (linearGradient: LinearGradient) =
-            Interop.mkStyle "backgroundImage" (LinearGradient.toString GradientVariant.Normal linearGradient)
-
-        static member inline linearGradient (firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.simpleGradient firstColor secondColor
-                 |> LinearGradient.toString GradientVariant.Normal)
+            let gradientStr =
+                ("linear-gradient("
+                 + unbox<string> options
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
         static member inline linearGradient
-            (cornerOrAngle: GradientCornerOrAngle, firstColor: string, secondColor: string)
+            (firstColor: ILinearColorStop, [<ParamArray>] otherColors: ILinearColorStopAndHint array)
             =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.simpleGradientWithCornerOrAngle cornerOrAngle firstColor secondColor
-                 |> LinearGradient.toString GradientVariant.Normal)
+            let gradientStr =
+                ("linear-gradient("
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline linearGradient (colors: string array) =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.colorGradient colors
-                 |> LinearGradient.toString GradientVariant.Normal)
+        static member inline radialGradient
+            (
+                shapeAndOrSize: IRadialSizeAndOrShape,
+                position: IGradientPosition,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
+            =
+            let gradientStr =
+                ("radial-gradient("
+                 + unbox<string> shapeAndOrSize
+                 + " "
+                 + unbox position
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline radialGradient (radialGradient: RadialGradient) =
-            Interop.mkStyle "backgroundImage" (RadialGradient.toString GradientVariant.Normal radialGradient)
+        static member inline radialGradient
+            (
+                position: IGradientPosition,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
+            =
+            let gradientStr =
+                ("radial-gradient("
+                 + unbox position
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline radialGradient (firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (RadialGradient.simpleGradient firstColor secondColor
-                 |> RadialGradient.toString GradientVariant.Normal)
+        static member inline radialGradient
+            (
+                shapeAndOrSize: IRadialSizeAndOrShape,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
+            =
+            let gradientStr =
+                ("radial-gradient("
+                 + unbox<string> shapeAndOrSize
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline radialGradient (position: GradientPosition, firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (RadialGradient.simpleGradientWithPosition position firstColor secondColor
-                 |> RadialGradient.toString GradientVariant.Normal)
+        static member inline conicGradient
+            (
+                angleAndPosition: IAngleAndPosition,
+                colorInterpolation: IColorInterpolation,
+                firstColor: IAngleColorStop,
+                [<ParamArray>] otherColors: IAngleColorHintAndStop array
+            )
+            =
+            let gradientStr =
+                ("conic-gradient("
+                 + unbox<string> angleAndPosition
+                 + " "
+                 + unbox<string> colorInterpolation
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline radialGradient (colors: string list) =
-            Interop.mkStyle
-                "backgroundImage"
-                (RadialGradient.colorGradient colors
-                 |> RadialGradient.toString GradientVariant.Normal)
+        static member inline conicGradient
+            (
+                angleAndPosition: IAngleAndPosition,
+                firstColor: IAngleColorStop,
+                [<ParamArray>] otherColors: IAngleColorHintAndStop array
+            )
+            =
+            let gradientStr =
+                ("conic-gradient("
+                 + unbox<string> angleAndPosition
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline conicGradient (conicGradient: ConicGradient) =
-            Interop.mkStyle "backgroundImage" (ConicGradient.toString GradientVariant.Normal conicGradient)
-
-        static member inline conicGradient (firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.simpleGradient firstColor secondColor
-                 |> ConicGradient.toString GradientVariant.Normal)
-
-        static member inline conicGradient (position: GradientPosition, firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.simpleGradientWithPosition position firstColor secondColor
-                 |> ConicGradient.toString GradientVariant.Normal)
-
-        static member inline conicGradient (angle: GradientAngle, firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.simpleGradientWithAngle angle firstColor secondColor
-                 |> ConicGradient.toString GradientVariant.Normal)
-
-        static member inline conicGradient (colors: string list) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.colorGradient colors
-                 |> ConicGradient.toString GradientVariant.Normal)
-
-        static member inline repeatingLinearGradient (linearGradient: LinearGradient) =
-            Interop.mkStyle "backgroundImage" (LinearGradient.toString GradientVariant.Repeating linearGradient)
-
-        static member inline repeatingLinearGradient (firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.simpleGradient firstColor secondColor
-                 |> LinearGradient.toString GradientVariant.Repeating)
+        static member inline conicGradient
+            (
+                colorInterpolation: IColorInterpolation,
+                firstColor: IAngleColorStop,
+                [<ParamArray>] otherColors: IAngleColorHintAndStop array
+            )
+            =
+            let gradientStr =
+                ("conic-gradient("
+                 + unbox<string> colorInterpolation
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
         static member inline repeatingLinearGradient
-            (cornerOrAngle: GradientCornerOrAngle, firstColor: string, secondColor: string)
+            (
+                options: ILinearGradientOptions,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
             =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.simpleGradientWithCornerOrAngle cornerOrAngle firstColor secondColor
-                 |> LinearGradient.toString GradientVariant.Repeating)
+            let gradientStr =
+                ("repeating-linear-gradient("
+                 + unbox<string> options
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline repeatingLinearGradient (colors: string array) =
-            Interop.mkStyle
-                "backgroundImage"
-                (LinearGradient.colorGradient colors
-                 |> LinearGradient.toString GradientVariant.Repeating)
-
-        static member inline repeatingRadialGradient (radialGradient: RadialGradient) =
-            Interop.mkStyle "backgroundImage" (RadialGradient.toString GradientVariant.Repeating radialGradient)
-
-        static member inline repeatingRadialGradient (firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (RadialGradient.simpleGradient firstColor secondColor
-                 |> RadialGradient.toString GradientVariant.Repeating)
+        static member inline repeatingLinearGradient
+            (firstColor: ILinearColorStop, [<ParamArray>] otherColors: ILinearColorStopAndHint array)
+            =
+            let gradientStr =
+                ("repeating-linear-gradient("
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
         static member inline repeatingRadialGradient
-            (position: GradientPosition, firstColor: string, secondColor: string)
+            (
+                shapeAndOrSize: IRadialSizeAndOrShape,
+                position: IGradientPosition,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
             =
-            Interop.mkStyle
-                "backgroundImage"
-                (RadialGradient.simpleGradientWithPosition position firstColor secondColor
-                 |> RadialGradient.toString GradientVariant.Repeating)
+            let gradientStr =
+                ("repeating-radial-gradient("
+                 + unbox<string> shapeAndOrSize
+                 + " "
+                 + unbox position
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline repeatingRadialGradient (colors: string list) =
-            Interop.mkStyle
-                "backgroundImage"
-                (RadialGradient.colorGradient colors
-                 |> RadialGradient.toString GradientVariant.Repeating)
+        static member inline repeatingRadialGradient
+            (
+                position: IGradientPosition,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
+            =
+            let gradientStr =
+                ("repeating-radial-gradient("
+                 + unbox position
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline repeatingConicGradient (conicGradient: ConicGradient) =
-            Interop.mkStyle "backgroundImage" (ConicGradient.toString GradientVariant.Repeating conicGradient)
-
-        static member inline repeatingConicGradient (firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.simpleGradient firstColor secondColor
-                 |> ConicGradient.toString GradientVariant.Repeating)
+        static member inline repeatingRadialGradient
+            (
+                shapeAndOrSize: IRadialSizeAndOrShape,
+                firstColor: ILinearColorStop,
+                [<ParamArray>] otherColors: ILinearColorStopAndHint array
+            )
+            =
+            let gradientStr =
+                ("repeating-radial-gradient("
+                 + unbox<string> shapeAndOrSize
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
         static member inline repeatingConicGradient
-            (position: GradientPosition, firstColor: string, secondColor: string)
+            (
+                angleAndPosition: IAngleAndPosition,
+                colorInterpolation: IColorInterpolation,
+                firstColor: IAngleColorStop,
+                [<ParamArray>] otherColors: IAngleColorHintAndStop array
+            )
             =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.simpleGradientWithPosition position firstColor secondColor
-                 |> ConicGradient.toString GradientVariant.Repeating)
+            let gradientStr =
+                ("repeating-conic-gradient("
+                 + unbox<string> angleAndPosition
+                 + " "
+                 + unbox<string> colorInterpolation
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline repeatingConicGradient (angle: GradientAngle, firstColor: string, secondColor: string) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.simpleGradientWithAngle angle firstColor secondColor
-                 |> ConicGradient.toString GradientVariant.Repeating)
+        static member inline repeatingConicGradient
+            (
+                angleAndPosition: IAngleAndPosition,
+                firstColor: IAngleColorStop,
+                [<ParamArray>] otherColors: IAngleColorHintAndStop array
+            )
+            =
+            let gradientStr =
+                ("repeating-conic-gradient("
+                 + unbox<string> angleAndPosition
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
-        static member inline repeatingConicGradient (colors: string list) =
-            Interop.mkStyle
-                "backgroundImage"
-                (ConicGradient.colorGradient colors
-                 |> ConicGradient.toString GradientVariant.Repeating)
+        static member inline repeatingConicGradient
+            (
+                colorInterpolation: IColorInterpolation,
+                firstColor: IAngleColorStop,
+                [<ParamArray>] otherColors: IAngleColorHintAndStop array
+            )
+            =
+            let gradientStr =
+                ("repeating-conic-gradient("
+                 + unbox<string> colorInterpolation
+                 + ", "
+                 + unbox<string> firstColor
+                 + ", "
+                 + unbox<string> otherColors
+                 + ")")
+            Interop.mkStyle "backgroundImage" gradientStr
 
     [<Erase>]
     type boxShadow =
