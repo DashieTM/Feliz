@@ -1,5 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--This is a temporary file used by Fable to restore dependencies.
+If you see this file in your project, you can delete it safely-->
   <PropertyGroup>
     <Description>react-kawaii bindings based on the Feliz API</Description>
     <PackageIconUrl></PackageIconUrl>
@@ -10,7 +12,6 @@
     <LangVersion>8.0</LangVersion>
     <PackageReleaseNotes>Update Feiz to v2</PackageReleaseNotes>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="Kawaii.fs" />
   </ItemGroup>
@@ -24,6 +25,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Feliz\Feliz.fsproj" />
+    
+    <PackageReference Include="Feliz" Version="2.0.0" />
   </ItemGroup>
 </Project>

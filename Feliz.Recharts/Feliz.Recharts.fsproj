@@ -5,7 +5,8 @@
         <PackageTags>fsharp;fable;react;html</PackageTags>
         <Authors>Zaid Ajaj</Authors>
         <Version>4.3.0</Version>
-        <TargetFramework>netstandard2.0</TargetFramework>
+    	<TargetFramework>net8.0</TargetFramework>
+    	<LangVersion>8.0</LangVersion>
         <PackageReleaseNotes>Add yAxis tickFormatter</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
@@ -55,7 +56,7 @@
         <Content Include="*.fsproj; *.fs; *.js;" Exclude="**\*.fs.js" PackagePath="fable\" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Update="FSharp.Core" Version="4.7.2" />
+        
         <PackageReference Include="Feliz" Version="2.3.0" />
     </ItemGroup>
 </Project>

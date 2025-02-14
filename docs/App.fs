@@ -1150,7 +1150,7 @@ let content = React.functionComponent(fun (input: {| state: State; dispatch: Msg
         | [ Urls.UseElmish ] -> lazyView MarkdownLoader.Load [ "Feliz.UseElmish"; "Index.md" ]
         | [ Urls.Listeners ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.Listeners" ]
         | [ Urls.UseMediaQuery ] -> lazyView MarkdownLoader.Load [ "Feliz.UseMediaQuery"; "Index.md" ]
-        | [ Urls.UseWorker ] -> lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.UseWorker" ]
+        | [ Urls.UseWorker ] -> Html.div [ Html.div [ prop.style [ style.display.grid; style.gridAutoRows.unset ] ] ;lazyView MarkdownLoader.Load [ readme "Shmew" "Feliz.UseWorker" ]]
         | _ -> Html.div [ for segment in input.state.CurrentPath -> Html.p segment ]
     | PathPrefix [ Urls.Components ] (Some res) ->
         match res with

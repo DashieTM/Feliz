@@ -83,12 +83,13 @@
               (
                 with dotnetCorePackages;
                 combinePackages [
-                  dotnetCorePackages.sdk_6_0
+                  #dotnetCorePackages.sdk_6_0
                   dotnetCorePackages.sdk_8_0
                 ]
               )
               #fantomas
               chromium
+              nuget
             ];
             LD_LIBRARY_PATH = libPath;
           };

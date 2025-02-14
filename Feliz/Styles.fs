@@ -5,6 +5,15 @@ open Fable.Core
 open Feliz.Styles
 
 [<Erase>]
+type IGlobalStyles<'T> = 
+    static member inline inheritFromParent = Interop.mkStyle (typeof<'T>.Name) "inherit"
+    static member inline initial = Interop.mkStyle (typeof<'T>.Name) "initial"
+    static member inline revert = Interop.mkStyle (typeof<'T>.Name) "revert"
+    static member inline revertLayer = Interop.mkStyle (typeof<'T>.Name) "revert-layer"
+    static member inline unset = Interop.mkStyle (typeof<'T>.Name) "2px 2px"
+    //static member inline unset = Interop.mkStyle "gridAutoRows" "2px 2px"
+
+[<Erase>]
 type style =
     /// The zIndex property sets or returns the stack order of a positioned element.
     ///
@@ -5054,10 +5063,18 @@ module style =
         static member inline paddingBox = Interop.mkStyle "backgroundClip" "padding-box"
         /// The background extends to the edge of the content box.
         static member inline contentBox = Interop.mkStyle "backgroundClip" "content-box"
+        // TODO beforpr comment
+        ////
+        static member inline text = Interop.mkStyle "backgroundClip" "text"
+
         /// Sets this property to its default value.
         static member inline initial = Interop.mkStyle "backgroundClip" "initial"
         /// Inherits this property from its parent element.
         static member inline inheritFromParent = Interop.mkStyle "backgroundClip" "inherit"
+        /// 
+        static member inline revert = Interop.mkStyle "backgroundClip" "revert"
+        static member inline revertLayer = Interop.mkStyle "backgroundClip" "revert-layer"
+        static member inline unset = Interop.mkStyle "backgroundClip" "unset"
 
     [<Erase>]
     type transform =
@@ -6357,6 +6374,7 @@ module style =
     /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows
     [<Erase>]
     type gridAutoRows =
+        inherit IGlobalStyles<gridAutoRows>
         /// Default value. The size of the rows is determined by the size of the container
         ///
         /// Documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-rows#values

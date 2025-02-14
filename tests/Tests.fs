@@ -1077,7 +1077,7 @@ let felizTests = testList "Feliz Tests" [
 
         do!
             RTL.waitFor <| fun () ->
-                Expect.equal (render.getByTestId "useTokenCancellation").innerText "Failed" "Cancels all subsequent re-renders and calls the disposal function"
+                (Expect.equal (render.getByTestId "useTokenCancellation").innerText "Failed") "Cancels all subsequent re-renders and calls the disposal function"
             |> Async.AwaitPromise
     }
 

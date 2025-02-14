@@ -5,7 +5,8 @@
         <PackageTags>fsharp;fable;react;html;feliz</PackageTags>
         <Authors>Zaid Ajaj</Authors>
         <Version>2.5.0</Version>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
+    	<LangVersion>8.0</LangVersion>
         <PackageReleaseNotes>Making dispatch function stable</PackageReleaseNotes>
     </PropertyGroup>
     <PropertyGroup>
@@ -21,6 +22,5 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Fable.Elmish" Version="4.0.0" />
-        <PackageReference Update="FSharp.Core" Version="4.7.2" />
     </ItemGroup>
 </Project>

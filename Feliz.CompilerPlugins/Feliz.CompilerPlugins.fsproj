@@ -1,10 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Provides compile-time transformation for React components</Description>
     <PackageTags>fsharp;fable;react;html</PackageTags>
     <Authors>Zaid Ajaj</Authors>
     <Version>2.2.0</Version>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <PackageReleaseNotes>Remove redundant declaration of imported React component</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
@@ -14,8 +16,5 @@
     <Compile Include="PrimitiveElement.fs" />
     <Compile Include="PrimitiveElementWithChildren.fs" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Fable.AST" Version="4.2.1" />
-    <PackageReference Update="FSharp.Core" Version="4.7.2" />
-  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>
