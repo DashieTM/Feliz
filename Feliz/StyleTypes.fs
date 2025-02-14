@@ -54,4 +54,12 @@ type IGridSpan = interface end
 
 type IGridTemplateItem = interface end
 
+type IGridLine = interface end
+
+type IGridLineNames = interface end
+
+type IGridTrackRepeat = interface end
+
+type IGridTemplate = interface end
+
 type IFilter = interface end
