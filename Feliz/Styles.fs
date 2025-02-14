@@ -856,9 +856,9 @@ type style =
     /// ```f#
     /// gridTemplateColumns: [199.5;99.5;99.5]
     /// ```
-    static member inline gridTemplateColumns(value: float list) =
+    static member inline gridTemplateColumns(value: float seq) =
         let addPixels = fun x -> x + "px"
-        Interop.mkStyle "gridTemplateColumns" ((List.map addPixels >> String.concat " ") (unbox<string list> value))
+        Interop.mkStyle "gridTemplateColumns" ((Seq.map addPixels >> String.concat " ") (unbox<string list> value))
     /// Sets the width of each individual grid column in pixels.
     ///
     /// **CSS**
