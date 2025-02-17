@@ -4,6 +4,7 @@ open Browser.Dom
 open Elmish
 open Elmish.React
 open Feliz
+open Feliz.Styles
 open Feliz.Markdown
 open Feliz.Router
 open Fable.Core.JsInterop
@@ -888,6 +889,136 @@ let allItems = React.functionComponent(fun (input: {| state: State; dispatch: Ms
         prop.className "scrollbar"
         prop.children [
             menuList [
+                Html.div [
+                    prop.style [
+                        style.display.grid
+                        style.grid.autoFlow (
+                            gridTemplateRowsOrColumns.autoTrackList (
+                                gridAutoTrackList.autoRepeat (
+                                    gridAutoRepeat.repeatAutoFill (
+                                        gridFixedSize.minmax (2, length.fr 1), gridLineNames.names ("pingpang")))))
+                    ]
+                    prop.children [ Html.span [ prop.text "pingpang" ] ]
+                ]
+                Html.div [
+                    prop.style [
+                        style.display.grid
+                        style.grid.autoFlow (
+                            gridTemplateRowsOrColumns.autoTrackList (
+                                gridAutoTrackList.list (
+                                    [
+                                        gridTrackNameWithSizeOrRepeat.lineWithSize (
+                                            gridLineNames.names ("pingpang", "what"),
+                                            gridFixedSize.minmax (2, length.px 20)
+                                        )
+                                        gridTrackNameWithSizeOrRepeat.lineWithSize (
+                                            gridLineNames.names ("pingpang", "what"),
+                                            gridFixedSize.minmax (length.px 20, 88)
+                                        )
+                                    ],
+                                    gridAutoRepeat.repeatAutoFill (
+                                        gridFixedSize.minmax (2, length.px 20),
+                                        gridLineNames.names ("pingpang")
+                                    )
+                                )
+                            )
+                        )
+                    ]
+                    prop.children [ Html.span [ prop.text "pingpang" ] ]
+                ]
+                Html.div [
+                    prop.style [
+                        style.display.grid
+                        style.grid.autoFlow (
+                            gridTemplateRowsOrColumns.trackList (
+                                gridTrackList.list (
+                                    gridLineNames.names ("pingpang", "what"),
+                                    gridTrackNameWithSizeOrRepeat.lineWithSize (
+                                        gridLineNames.names ("pingpang", "what"),
+                                        gridFixedSize.minmax (length.px 2, 88)
+                                    ),
+                                    gridTrackNameWithSizeOrRepeat.lineWithSize (
+                                        gridLineNames.names ("pingpang", "what"),
+                                        gridFixedSize.minmax (2, length.px 10)
+                                    )
+                                )
+                            )
+                        )
+                    ]
+                    prop.children [ Html.span [ prop.text "pingpang" ] ]
+                ]
+                Html.div [
+                    prop.style [
+                        style.display.grid
+                        style.grid.template (
+                            gridTemplate.custom (
+                                gridCustom.custom ("what")
+                            )
+                        )
+                    ]
+                    prop.children [ Html.span [ prop.text "pingpang" ] ]
+                ]
+                Html.div [
+                    prop.style [
+                        style.display.grid
+                        style.grid.template (
+                            gridTemplate.template (
+                               gridTemplateRowsOrColumns.subGrid (
+                                  gridLineNameList.list (
+                                    gridLineNameOrNameRepeat.repeat (
+                                       gridNameRepeat.repeatAutoFill (
+                                            gridLineNames.names ("what", "test")
+                                       )
+                                    )
+                                  )
+                               ),
+                               gridTemplateRowsOrColumns.subGrid ()
+                            )
+                        )
+                    ]
+                    prop.children [ Html.span [ prop.text "pingpang" ] ]
+                ]
+                Html.div [
+                    prop.style [
+                        style.display.grid
+                        style.grid.autoFlowDense (
+                            gridTemplateRowsOrColumns.subGrid (
+                                gridLineNameList.list (
+                                    gridLineNameOrNameRepeat.repeat (
+                                       gridNameRepeat.repeatAutoFill (
+                                            gridLineNames.names ("what", "test")
+                                       )
+                                    ),
+                                    gridLineNameOrNameRepeat.repeat (
+                                       gridNameRepeat.repeatAutoFill (
+                                            gridLineNames.names ("what", "test")
+                                       )
+                                    ),
+                                    gridLineNameOrNameRepeat.line (
+                                        gridLineNames.names ("what", "test")
+                                    )
+                                )
+                                
+                            ),
+                            gridTemplateRowsOrColumns.autoTrackList (
+                                gridAutoTrackList.list (
+                                        [
+                                            gridTrackNameWithSizeOrRepeat.size (gridFixedSize.fixedBreadth 2 )
+                                            gridTrackNameWithSizeOrRepeat.size (gridFixedSize.minmax (2, length.px 200) )
+                                        ],
+                                        gridLineNames.names ("what", "test"),
+                                        gridAutoRepeat.repeatAutoFill (gridFixedSize.minmax (length.px 10, 10), gridLineNames.names ("what", "test")),
+                                        [
+                                            gridTrackNameWithSizeOrRepeat.size (gridFixedSize.fixedBreadth 2 )
+                                            gridTrackNameWithSizeOrRepeat.size (gridFixedSize.minmax (2, length.px 10) )
+                                        ],
+                                        gridLineNames.names ("what", "test")
+                                )
+                            )
+                        )
+                    ]
+                    prop.children [ Html.span [ prop.text "pingpang" ] ]
+                ]
                 menuItem "Overview" [ ]
                 menuItem "Installation" [ Urls.Feliz; Urls.Installation ]
                 menuItem "Project Template" [ Urls.Feliz; Urls.ProjectTemplate ]
